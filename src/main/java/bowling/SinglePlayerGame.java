@@ -1,4 +1,5 @@
 package bowling;
+import java.util.ArrayList;
 
 /**
  * Cette classe a pour but d'enregistrer le nombre de quilles abattues lors des
@@ -6,10 +7,15 @@ package bowling;
  * final de ce joueur
  */
 public class SinglePlayerGame {
-
+        
 	/**
 	 * Constructeur
 	 */
+         
+         //ArrayList<Integer> Liste = new ArrayList()<Integer>;
+         int score[] = new int[22];
+         int numeroLancer = 0 ;
+         
 	public SinglePlayerGame() {
 	}
 
@@ -20,7 +26,10 @@ public class SinglePlayerGame {
 	 * ce lancé
 	 */
 	public void lancer(int nombreDeQuillesAbattues) {
-
+            score[numeroLancer] = nombreDeQuillesAbattues;
+            numeroLancer ++;
+            if(nombreDeQuillesAbattues == 10 && numeroLancer <= 19){numeroLancer ++; score[numeroLancer] = -1;}
+            
 	}
 
 	/**
@@ -29,6 +38,19 @@ public class SinglePlayerGame {
 	 * @return Le score du joueur
 	 */
 	public int score() {
-		throw new UnsupportedOperationException("Pas encore implémenté");
+            int res = 0;
+            boolean secondeBoule = false;
+            for(int i =0 ; i < 20 ; i++){
+                if (score[i] == 10 && !(secondeBoule)){if(score[i+3] == -1){res+=score[i]+score[i+2]+score[i+4];} else{res+=score[i]+score[i+2]+score[i+3];}
+                }
+                else{
+                    if(secondeBoule && score[i]+score[i-1]==10){
+                        res+=score[i]+score[i+1];
+                        secondeBoule = false;
+                    }
+                    else{res+=score[i];secondeBoule = !(secondeBoule);}
+                }
+            }
+                return res;
 	}
 }
