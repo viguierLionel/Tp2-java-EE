@@ -12,9 +12,10 @@ public class SinglePlayerGame {
 	 * Constructeur
 	 */
          
-         //ArrayList<Integer> Liste = new ArrayList()<Integer>;
          int score[] = new int[22];
+         //for(int i =0; i<22 ; i++){score[i] = 42; }
          int numeroLancer = 0 ;
+         
          
 	public SinglePlayerGame() {
 	}
@@ -28,7 +29,10 @@ public class SinglePlayerGame {
 	public void lancer(int nombreDeQuillesAbattues) {
             score[numeroLancer] = nombreDeQuillesAbattues;
             numeroLancer ++;
-            if(nombreDeQuillesAbattues == 10 && numeroLancer <= 19){numeroLancer ++; score[numeroLancer] = -1;}
+            if(nombreDeQuillesAbattues == 10 && numeroLancer <= 19){
+            score[numeroLancer] = -1;
+            numeroLancer ++;}
+            
             
 	}
 
@@ -41,6 +45,7 @@ public class SinglePlayerGame {
             int res = 0;
             boolean secondeBoule = false;
             for(int i =0 ; i < 20 ; i++){
+                System.out.println(score[i]);
                 if (score[i] == 10 && !(secondeBoule)){if(score[i+3] == -1){res+=score[i]+score[i+2]+score[i+4];} else{res+=score[i]+score[i+2]+score[i+3];}
                 }
                 else{
@@ -48,7 +53,10 @@ public class SinglePlayerGame {
                         res+=score[i]+score[i+1];
                         secondeBoule = false;
                     }
-                    else{res+=score[i];secondeBoule = !(secondeBoule);}
+                    else{
+                        if(score[i]!= -1){res+=score[i];secondeBoule = !(secondeBoule);}
+                        
+                    }
                 }
             }
                 return res;
